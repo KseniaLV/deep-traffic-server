@@ -6,7 +6,20 @@ mongoose.Promise = require('bluebird');
 var app = express();
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost/deepTrafficData');
+var ip_addr = process.env.OPENSHIFT_NODEJS_IP  || 127.0.0.1';
+var port    = process.env.OPENSHIFT_NODEJS_PORT || '8080';
+// default to a 'localhost' configuration:
+var connection_string = '127.0.0.1:27017/deepTrafficData';
+// if OPENSHIFT env variables are present, use the available connection info:
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+  process.env.OPENSHIFT_APP_NAME;
+}
+
+mongoose.connect('mongodb://'+connection_string);
  
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
@@ -70,3 +83,4 @@ app.post('/api/newUser', function(request, response){
 });
 
 app.listen('4500');
+
