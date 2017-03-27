@@ -8,14 +8,7 @@ app.use(bodyParser.json());
 
 var port = process.env.port || 4500;
 
-mongoose.connect('mongodb://localhost/deepTrafficData');
- 
-/*app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '');
-  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  	res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-    next();
-});*/
+mongoose.connect('mongodb://ksenialv:1007905k!@clusterdeeptr-shard-00-00-22vim.mongodb.net:27017,clusterdeeptr-shard-00-01-22vim.mongodb.net:27017,clusterdeeptr-shard-00-02-22vim.mongodb.net:27017/deepTrafficData?ssl=true&replicaSet=ClusterDeepTr-shard-0&authSource=admin');
 
 var userSchema = new mongoose.Schema({
        // _id: 'string',
@@ -71,9 +64,4 @@ app.post('/api/newUser', function(request, response){
     response.send('Data is saved');
 });
 
-var server = app.listen(port, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-
-    console.log('Example app listening at http://%s:%s', host, port);
-});
+var server = app.listen(port);
