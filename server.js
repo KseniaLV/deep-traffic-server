@@ -3,33 +3,19 @@ var mongoose = require('mongoose');
 
 mongoose.Promise = require('bluebird');
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-
 var app = express();
 app.use(bodyParser.json());
 
-var ip_addr = process.env.OPENSHIFT_NODEJS_IP  || 127.0.0.1';
-var port    = process.env.OPENSHIFT_NODEJS_PORT || '8080';
-// default to a 'localhost' configuration:
-var connection_string = '127.0.0.1:27017/deepTrafficData';
-// if OPENSHIFT env variables are present, use the available connection info:
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-  process.env.OPENSHIFT_APP_NAME;
-}
+var port = process.env.port || 4500;
 
-mongoose.connect('mongodb://'+connection_string);
+mongoose.connect('mongodb://localhost/deepTrafficData');
  
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+/*app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '');
   	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   	res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     next();
-});
+});*/
 
 var userSchema = new mongoose.Schema({
        // _id: 'string',
@@ -85,5 +71,9 @@ app.post('/api/newUser', function(request, response){
     response.send('Data is saved');
 });
 
-app.listen(server_port, server_ip_address);
+var server = app.listen(port, function () {
+    var host = server.address().address;
+    var port = server.address().port;
 
+    console.log('Example app listening at http://%s:%s', host, port);
+});
