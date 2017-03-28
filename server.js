@@ -32,7 +32,7 @@ app.get('/api/users', function(req,res) {
 			res.send(err);
 		}
 		else {
-			res.send(docs);
+			res.send({users: docs});
 		}
 	});
 });
