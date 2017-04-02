@@ -27,7 +27,7 @@ app.get('/api/',function(req,res) {
 });
 
 app.get('/api/users', function(req,res) {
-	UserModel.find({},function(err,docs) {
+	UserModel.find({}).sort({mph: -1}).limit(10).exec(function(err,docs) {
 		if(err) {
 			res.send(err);
 		}
