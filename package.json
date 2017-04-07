@@ -1,7 +1,6 @@
 {
   "name": "deep-traffic-server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -9,7 +8,8 @@
     "express": "^4.15.2",
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.1",
-    "mpromise": "^0.5.5"
+    "mpromise": "^0.5.5",
+    "nodemailer": "^4.0.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -17,5 +17,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KseniaLV/deep-traffic-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KseniaLV/deep-traffic-server/issues"
+  },
+  "homepage": "https://github.com/KseniaLV/deep-traffic-server#readme",
+  "description": ""
 }
