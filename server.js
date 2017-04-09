@@ -5,6 +5,10 @@ let nodemailer = require('nodemailer');
 mongoose.Promise = require('bluebird');
 
 let app = express();
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 
 let port = process.env.port || 4500;
@@ -59,10 +63,10 @@ app.get('/api/userrecords', function(req,res) {
 	});
 });
 
-app.post('/api/users', function(request, response){
-    let newUser = new UserModel(request.body.user);
+app.post('/api/users', function(request, response) {
+    let newUser = new UserModel(request.body);
     let bestResult = newUser.mph, currentResult = newUser.mph;
-    UserModel.findByName(newUser.nick, function (err, similarUsers) {
+    UserModel.findByName(newUser.user, function (err, similarUsers) {
         if (similarUsers.length === 0) {
             newUser.save(function (err) {
                 if (err) {
@@ -85,7 +89,7 @@ app.post('/api/users', function(request, response){
                 bestResult = user.mph;
             }
         }
-        mailOptions.to = request.body.user.email;
+        mailOptions.to = request.body.email;
         mailOptions.text = 'Your last result is ' + currentResult + " kmph. Your best result is " + bestResult + " kmph.";
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
