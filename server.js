@@ -54,7 +54,7 @@ app.get('/api/userrecords', function(req,res) {
 			res.send(err);
 		}
 		else {
-			res.send({data: docs});
+			res.send({userrecords: docs});
 		}
 	});
 });
