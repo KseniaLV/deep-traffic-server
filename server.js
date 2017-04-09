@@ -85,7 +85,7 @@ app.post('/api/users', function(request, response){
                 bestResult = user.mph;
             }
         }
-        mailOptions.to = request.body.email;
+        mailOptions.to = request.body.user.email;
         mailOptions.text = 'Your last result is ' + currentResult + " kmph. Your best result is " + bestResult + " kmph.";
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
