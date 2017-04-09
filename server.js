@@ -48,7 +48,7 @@ app.get('/api/',function(req,res) {
 	res.send('Working');
 });
 
-app.get('/api/users', function(req,res) {
+app.get('/api/userrecords', function(req,res) {
 	UserModel.find({}).sort({mph: -1}).limit(10).exec(function(err,docs) {
 		if(err) {
 			res.send(err);
