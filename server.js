@@ -59,7 +59,7 @@ app.get('/api/userrecords', function(req,res) {
 	});
 });
 
-app.post('/api/newUsers', function(request, response){
+app.post('/api/users', function(request, response){
     let newUser = new UserModel(request.body);
     let bestResult = newUser.mph, currentResult = newUser.mph;
     UserModel.findByName(newUser.user, function (err, similarUsers) {
