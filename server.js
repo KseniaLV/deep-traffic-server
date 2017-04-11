@@ -90,7 +90,7 @@ app.post('/api/users', function(request, response) {
             }
         }
         mailOptions.to = request.body.email;
-        mailOptions.text = 'Your last result is ' + currentResult + " kmph. Your best result is " + bestResult + " kmph.";
+        mailOptions.text = 'Hello, '+ newUser.user +'! Your last result is ' + currentResult + " kmph. Your best result is " + bestResult + " kmph.";
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 return console.log(error);
